@@ -1,13 +1,13 @@
-import "./FormLoginAndRegister.module.css";
+import styles from "./FormLoginAndRegister.module.css";
 import { Link } from "react-router-dom";
 
 import InputNoBorder from "./InputNoBorder";
 import FormTitle from "./FormTitle";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { FaEnvelope, FaKey } from "react-icons/fa";
 
 function FormLogin() {
   return (
-    <form className="form_login">
+    <form className={styles.form_login}>
       <FormTitle title="ENTRAR" />
       <InputNoBorder
         type="text"
@@ -19,11 +19,14 @@ function FormLogin() {
         type="password"
         name="password"
         placeholder="Senha"
-        labelImg={<FaLock />}
+        labelImg={<FaKey />}
+        customId={styles.password_input}
       />
-      <Link to="/register">
-        Não possui cadastro? Clique aqui para se cadastrar.
-      </Link>
+      <span className={styles.link}>
+        <Link to="/register">
+          Não possui cadastro? Clique aqui para se cadastrar.
+        </Link>
+      </span>
     </form>
   );
 }

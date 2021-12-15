@@ -1,7 +1,7 @@
-import "./FormTitle.module.css";
+import styles from "./FormTitle.module.css";
 
 function FormTitle({ title }) {
-  return <span className="auth_form_title">{title}</span>;
+  return <span className={styles.auth_form_title}>{title}</span>;
 }
 
 export default FormTitle;

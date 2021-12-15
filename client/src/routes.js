@@ -8,12 +8,12 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route component = { <Login /> } exact path="/" />
-        <Route component = { <Login /> } path="/login" />
-        <Route component = { <Register /> } path="/register" />
+        <Route element={<h1>Homepage</h1>} exact path="/" />
+        <Route element={<Login />} path="login" />
+        <Route element={<Register />} path="register" />
       </Routes>
     </BrowserRouter>
   );
-}; 
+};
 
 export default AppRoutes;

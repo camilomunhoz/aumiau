@@ -1,4 +1,4 @@
-import "./FormLoginAndRegister.module.css";
+import styles from "./FormLoginAndRegister.module.css";
 import { Link } from "react-router-dom";
 
 import InputNoBorder from "./InputNoBorder";
@@ -7,13 +7,13 @@ import {
   FaUser,
   FaEnvelope,
   FaFingerprint,
-  FaLock,
+  FaKey,
   FaRegCalendarAlt,
 } from "react-icons/fa";
 
 function FormRegister() {
   return (
-    <form className="form_register">
+    <form className={styles.form_register}>
       <FormTitle title="REGISTRAR-SE" />
       <InputNoBorder
         type="text"
@@ -32,20 +32,25 @@ function FormRegister() {
         name="cpf"
         placeholder="CPF"
         labelImg={<FaFingerprint />}
-      />
-      <InputNoBorder
-        type="password"
-        name="password"
-        placeholder="Senha"
-        labelImg={<FaLock />}
+        mask="999.999.999-99"
       />
       <InputNoBorder
         type="text"
         name="birth"
         placeholder="Data de nascimento"
         labelImg={<FaRegCalendarAlt />}
+        customClass
       />
-      <Link to="/login">Já possui cadastro? Clique aqui para entrar.</Link>
+      <InputNoBorder
+        type="password"
+        name="password"
+        placeholder="Senha"
+        labelImg={<FaKey />}
+        customId={styles.password_input}
+      />
+      <span className={styles.link}>
+        <Link to="/login">Já possui cadastro? Clique aqui para entrar.</Link>
+      </span>
     </form>
   );
 }
