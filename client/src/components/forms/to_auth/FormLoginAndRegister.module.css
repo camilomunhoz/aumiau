@@ -1,0 +1,19 @@
+.form_login, .form_register {
+  padding: 50px;
+  padding-top: 40px;
+  width: 400px;
+  height: fit-content;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.form_login .no_border_input, .form_register .no_border_input {
+    padding-bottom: 30px;
+}
+.form_login .no_border_input:first-of-type, .form_register .no_border_input:first-of-type {
+    padding-top: 30px;
+}

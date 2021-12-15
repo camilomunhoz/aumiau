@@ -1,0 +1,26 @@
+.no_border_input {
+    position: relative;
+}
+.no_border_input input {
+    border: none;
+    border-bottom: 3px solid #FFF5;
+    height: 30px;
+    width: 100%;
+    padding: 10px 15px 20px 35px;
+    color: white;
+    background-color: transparent;
+}
+.no_border_input input::placeholder, .no_border_input input {
+    color: white;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: "Source Sans 3";
+}
+.no_border_input svg {
+    position: absolute;
+    left: 0;
+    font-size: 1.1em;
+    margin-left: 5px;
+    filter: invert();
+    opacity: .5;
+}

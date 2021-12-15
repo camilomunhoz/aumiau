@@ -1,9 +1,17 @@
 body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
-html, body {
+* {
+  box-sizing: border-box !important;
+}
+html,
+body,
+.App,
+#root {
   height: 100%;
+}
+input {
+  outline: none;
 }
