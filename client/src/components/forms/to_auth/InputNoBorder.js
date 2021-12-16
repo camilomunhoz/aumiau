@@ -1,6 +1,8 @@
 import styles from "./InputNoBorder.module.css";
+import { useState } from "react";
+
 import InputMask from "react-input-mask";
-import { FaEye, FaEyeslash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function InputNoBorder({
   type,
@@ -10,18 +12,42 @@ function InputNoBorder({
   customId,
   mask,
   handleOnChange,
+  value,
 }) {
+  const [pswdView, setPswdView] = useState(false);
+
+  function togglePasswordView() {
+    pswdView ? setPswdView(false) : setPswdView(true);
+  }
+
   return (
     <div className={styles.no_border_input}>
-      <input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        id={customId}
-        mask={mask}
-      />
+      {mask ? (
+        <InputMask
+          name={name}
+          placeholder={placeholder}
+          mask={mask}
+          onChange={handleOnChange}
+          value={value}
+        />
+      ) : (
+        <input
+          type={type === "password" ? (pswdView ? "password" : "text") : type}
+          name={name}
+          placeholder={placeholder}
+          id={customId}
+          onChange={handleOnChange}
+          value={value}
+        />
+      )}
       {labelImg}
-      {type === "password" && <FaEye id={styles.eye} />}
+      {type === "password" &&
+        value &&
+        (pswdView ? (
+          <FaEye id={styles.eye} onClick={togglePasswordView} />
+        ) : (
+          <FaEyeSlash id={styles.eye} onClick={togglePasswordView} />
+        ))}
     </div>
   );
 }

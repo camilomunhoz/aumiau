@@ -1,5 +1,6 @@
 import React from "react";
 import AppRoutes from "./routes.js";
+import "./variables.css";
 
 function App() {
   return (

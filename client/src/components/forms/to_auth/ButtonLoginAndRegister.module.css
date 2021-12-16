@@ -1,0 +1,21 @@
+#ButtonLoginAndRegister {
+  display: block;
+  padding: 10px 15px;
+  border: none;
+  background-color: #fff5;
+  width: 100%;
+  margin-bottom: 20px;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Source Sans 3";
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 16px;
+}
+
+#ButtonLoginAndRegister:hover {
+  background-color: white;
+  /* color: var(--color1); */
+  color: rgb(107, 64, 15);
+  font-weight: bold;
+}
