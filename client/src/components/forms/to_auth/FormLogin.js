@@ -39,7 +39,7 @@ function FormLogin() {
   }
 
   return (
-    <form className={styles.form_login}>
+    <form id={styles.form_login}>
       <FormTitle title="ENTRAR" />
       <InputNoBorder
         type="text"

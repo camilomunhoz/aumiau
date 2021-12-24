@@ -1,3 +1,7 @@
 .invert {
   filter: invert();
 }
+#brand {
+  color: white;
+  font-weight: 200;
+}

@@ -1,5 +1,5 @@
-.form_login,
-.form_register {
+#form_login,
+#form_register {
   padding: 50px;
   padding-top: 40px;
   width: 400px;
@@ -12,12 +12,12 @@
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
-.form_login .no_border_input,
-.form_register .no_border_input {
+#form_login .no_border_input,
+#form_register .no_border_input {
   padding-bottom: 30px;
 }
-.form_login .no_border_input:first-of-type,
-.form_register .no_border_input:first-of-type {
+#form_login .no_border_input:first-of-type,
+#form_register .no_border_input:first-of-type {
   padding-top: 30px;
 }
 .link > a {

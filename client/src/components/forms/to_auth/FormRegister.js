@@ -35,7 +35,7 @@ function FormRegister() {
   }
 
   return (
-    <form className={styles.form_register}>
+    <form id={styles.form_register}>
       <FormTitle title="CADASTRE-SE" />
       <InputNoBorder
         type="text"
