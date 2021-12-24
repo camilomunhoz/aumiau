@@ -1,8 +1,8 @@
 import styles from "./ButtonLoginAndRegister.module.css";
 
-function ButtonLoginAndRegister({ text }) {
+function ButtonLoginAndRegister({ text, handleOnClick }) {
   return (
-    <button type="button" id={styles.ButtonLoginAndRegister}>
+    <button type="button" id={styles.ButtonLoginAndRegister} onClick={handleOnClick}>
       {text}
     </button>
   );

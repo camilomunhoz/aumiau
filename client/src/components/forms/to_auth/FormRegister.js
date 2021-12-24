@@ -1,6 +1,8 @@
 import styles from "./FormLoginAndRegister.module.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
+import Axios from "axios";
+import { authenticate } from "../../../auth";
 
 import ButtonLoginAndRegister from "./ButtonLoginAndRegister";
 import InputNoBorder from "./InputNoBorder";
@@ -15,10 +17,21 @@ import {
 
 function FormRegister() {
   const [register, setRegister] = useState([]);
+  const [redirect, setRedirect] = useState(false);
 
   function handleChange(e) {
     setRegister({ ...register, [e.target.name]: e.target.value });
-    // console.log(register);
+  }
+
+  function handleSubmit() {
+    Axios.post("http://localhost:3001/register", register).then((response) => {
+      if (!response.data.success) {
+        console.log(response.data.errors);
+      } else {
+        authenticate(response.data.logged);
+        setRedirect(true);
+      }
+    });
   }
 
   return (
@@ -63,10 +76,15 @@ function FormRegister() {
         handleOnChange={handleChange}
         value={register.password ? register.password : ""}
       />
-      <ButtonLoginAndRegister text="Cadastrar-se" />
+      <ButtonLoginAndRegister
+        text="Cadastrar-se"
+        handleOnClick={handleSubmit}
+      />
       <span className={styles.link}>
-        <Link to="/login">Já possui cadastro? Clique aqui para entrar.</Link>
+        <Link to="/">Já possui cadastro? Clique aqui para entrar.</Link>
       </span>
+
+      {redirect && <Navigate to="/" />}
     </form>
   );
 }

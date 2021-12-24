@@ -14,7 +14,7 @@ function InputNoBorder({
   handleOnChange,
   value,
 }) {
-  const [pswdView, setPswdView] = useState(false);
+  const [pswdView, setPswdView] = useState(true);
 
   function togglePasswordView() {
     pswdView ? setPswdView(false) : setPswdView(true);

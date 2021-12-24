@@ -1,0 +1,10 @@
+* {
+  margin: 0;
+}
+
+section {
+  height: calc(100% - 100px);
+}
+
+#home {
+}

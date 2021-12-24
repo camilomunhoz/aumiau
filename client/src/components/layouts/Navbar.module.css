@@ -1,0 +1,44 @@
+nav {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-bottom: 5px solid rgba(255, 255, 255, 0.2);
+  justify-content: space-between;
+}
+.nav_left_items,
+.nav_right_items {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.nav_right_items {
+  width: 70px;
+  justify-content: center;
+  cursor: pointer;
+}
+#logo {
+  margin: 0 15px;
+  padding: 0 15px;
+}
+.nav_link:not(#logo) {
+  text-decoration: none;
+  color: white;
+  line-height: 95px;
+  height: 100%;
+  padding: 0 15px;
+  transition: 0.2s;
+}
+.nav_link:hover:not(#logo),
+.nav_right_items:hover {
+  background-color: #fff3;
+}
+#user_icon {
+  font-size: 30px;
+  color: white;
+  height: 100%;
+}
