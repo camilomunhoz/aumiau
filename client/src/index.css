@@ -6,6 +6,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: 50%;
+  overflow-x: hidden;
 }
 * {
   box-sizing: border-box !important;

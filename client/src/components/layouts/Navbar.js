@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import styles from "./Navbar.module.css";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaDoorOpen } from "react-icons/fa";
+import { useState } from "react";
+import { unauthenticate } from "../../auth";
 
 function Navbar() {
+  const [menu, setMenu] = useState("active");
+  const username = "Camilo";
+  function toggleMenu() {
+    menu === "active" ? setMenu("unactive") : setMenu("active");
+  }
+
   return (
     <nav>
       <div className={styles.nav_left_items}>
@@ -17,9 +25,29 @@ function Navbar() {
           Adicionar pet
         </Link>
       </div>
-      <div className={styles.nav_right_items}>
+      <div className={styles.nav_right_items} onClick={toggleMenu}>
         <FaBars id={styles.user_icon} />
       </div>
+      {/* Menu lateral */}
+      {
+        <div
+          id={styles.side_menu}
+          className={menu === "active" ? styles.active_menu : null}
+        >
+          <ul>
+            <li>{username}</li>
+            <li
+              id={styles.logout_btn}
+              onClick={() => {
+                unauthenticate();
+              }}
+            >
+              <FaDoorOpen />
+              Logout
+            </li>
+          </ul>
+        </div>
+      }
     </nav>
   );
 }
