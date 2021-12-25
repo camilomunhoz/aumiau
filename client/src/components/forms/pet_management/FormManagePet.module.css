@@ -1,0 +1,6 @@
+#FormManagePet {
+  width: 280px;
+}
+#FormManagePet > * {
+  margin-bottom: 15px;
+}

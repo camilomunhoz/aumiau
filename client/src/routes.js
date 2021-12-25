@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import PrivateRoute from "./components/routes/PrivateRoute";
 
-// Páginas e layouts
+// Pages and layouts
 import Login from "./components/pages/public/Login";
 import Register from "./components/pages/public/Register";
 import Dashboard from "./components/layouts/Dashboard";
@@ -15,7 +15,7 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         {/* Public routes */}
-        <Route element={<Login />} exact path="/login" />
+        <Route element={<Login />} exact path="login" />
         <Route element={<Register />} exact path="register" />
 
         {/* Private routes that uses Dashboard layout (includes navbar) */}

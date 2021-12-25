@@ -1,9 +1,10 @@
 import Content from "../../layouts/Content";
+import styles from "./Home.module.css";
 
 function Home() {
   return (
-    <Content page="home">
-      <h1>Home</h1>
+    <Content id={styles.Home}>
+      <div></div>
     </Content>
   );
 }

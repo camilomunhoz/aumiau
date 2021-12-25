@@ -24,7 +24,7 @@ app.use(express.json());
 app.post("/register", (req, res) => {
   const errors = validate(req.body);
 
-  // Caso não hajam erros, cadastra, senão retorna a errorbag
+  // If there are no errors, register, if there is, send errorBag
   if (errors.length > 0) {
     res.send({ errors: errors });
   } else {
@@ -43,12 +43,12 @@ app.post("/register", (req, res) => {
                   if (err) {
                     res.send(err);
                   } else if (result) {
-                    res.send({ success: true, logged: row[0].iduser }); // Sucesso, manda o id do user
+                    res.send({ success: true, logged: row[0].iduser }); // Sucess, send user id
                   } else {
                     res.send({
                       success: false,
                       msg: "Ocorreu um erro, tente novamente.",
-                    }); // Usuário não foi salvo no banco
+                    }); // User was not recorded in the DB
                   }
                 }
               );
@@ -68,7 +68,7 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res) => {
   const errors = validate(req.body);
 
-  // Caso não hajam erros verifica o login, senão retorna a errorbag
+  // If there are no errors, validate login data, if there is, send errorBag
   if (errors.length) {
     res.send({ errors: errors });
   } else {
@@ -83,9 +83,9 @@ app.post("/login", (req, res) => {
             result[0].password,
             (bcryptErr, bcryptRes) => {
               if (bcryptRes) {
-                res.send({ success: true, logged: result[0].iduser }); // Sucesso, manda o id do user
+                res.send({ success: true, logged: result[0].iduser }); // Success, send user id
               } else {
-                res.send({ success: false, msg: "A senha não confere." }); // Senha não confere
+                res.send({ success: false, msg: "A senha não confere." }); // Password was not right
               }
             }
           );
@@ -95,12 +95,12 @@ app.post("/login", (req, res) => {
   }
 });
 
-// Aqui enquanto não consigo modularizar o código
+// -------------------  Aqui enquanto não consigo modularizar o código
 function validate(fields) {
   let errorBag = [];
 
   for (let key in fields) {
-    // Valida formato do e-mail
+    // Validate e-mail format
     if (
       key == "email" &&
       !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -113,7 +113,7 @@ function validate(fields) {
       });
     }
 
-    // Valida a senha
+    // Validate password
     if (key == "password" && fields[key].length < 8) {
       errorBag.push({
         field: key,
@@ -121,7 +121,7 @@ function validate(fields) {
       });
     }
 
-    // Valida formato do CPF
+    // Validate CPF format
     if (
       key == "cpf" &&
       !/^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}$/.test(fields[key])

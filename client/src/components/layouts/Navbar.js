@@ -6,7 +6,7 @@ import { useState } from "react";
 import { unauthenticate } from "../../auth";
 
 function Navbar() {
-  const [menu, setMenu] = useState("active");
+  const [menu, setMenu] = useState("unactive");
   const username = "Camilo";
   function toggleMenu() {
     menu === "active" ? setMenu("unactive") : setMenu("active");

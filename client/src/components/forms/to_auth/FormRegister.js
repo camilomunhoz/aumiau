@@ -2,11 +2,11 @@ import styles from "./FormLoginAndRegister.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Axios from "axios";
-import { authenticate } from "../../../auth";
+import isLogged, { authenticate } from "../../../auth";
 
 import ButtonLoginAndRegister from "./ButtonLoginAndRegister";
-import InputNoBorder from "./InputNoBorder";
-import FormTitle from "./FormTitle";
+import InputNoBorder from "../InputNoBorder";
+import FormTitle from "../FormTitle";
 import {
   FaUser,
   FaEnvelope,
@@ -17,7 +17,7 @@ import {
 
 function FormRegister() {
   const [register, setRegister] = useState([]);
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(isLogged());
 
   function handleChange(e) {
     setRegister({ ...register, [e.target.name]: e.target.value });
@@ -36,6 +36,8 @@ function FormRegister() {
 
   return (
     <form id={styles.form_register}>
+      {redirect && <Navigate to="/" />}
+
       <FormTitle title="CADASTRE-SE" />
       <InputNoBorder
         type="text"
@@ -83,8 +85,6 @@ function FormRegister() {
       <span className={styles.link}>
         <Link to="/">Já possui cadastro? Clique aqui para entrar.</Link>
       </span>
-
-      {redirect && <Navigate to="/" />}
     </form>
   );
 }

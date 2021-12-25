@@ -1,0 +1,16 @@
+#ButtonSavePet {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-weight: 400;
+  font-size: 22px;
+  font-family: "Source Sans 3", sans-serif;
+  margin: 0;
+  transition: border 0.2s ease;
+  cursor: pointer;
+  float: right;
+}
+#ButtonSavePet:hover {
+  border-bottom: 3px solid #fff4;
+  border-right: 3px solid #fff4;
+}

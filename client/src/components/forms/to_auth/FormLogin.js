@@ -2,16 +2,16 @@ import styles from "./FormLoginAndRegister.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Axios from "axios";
-import { authenticate } from "../../../auth";
+import isLogged, { authenticate } from "../../../auth";
 
 import ButtonLoginAndRegister from "./ButtonLoginAndRegister";
-import InputNoBorder from "./InputNoBorder";
-import FormTitle from "./FormTitle";
+import InputNoBorder from "../InputNoBorder";
+import FormTitle from "../FormTitle";
 import { FaEnvelope, FaKey } from "react-icons/fa";
 
 function FormLogin() {
   const [login, setLogin] = useState([]);
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(isLogged());
 
   function handleChange(e) {
     setLogin({ ...login, [e.target.name]: e.target.value });
@@ -40,6 +40,8 @@ function FormLogin() {
 
   return (
     <form id={styles.form_login}>
+      {redirect && <Navigate to="/" />}
+
       <FormTitle title="ENTRAR" />
       <InputNoBorder
         type="text"
@@ -64,8 +66,6 @@ function FormLogin() {
           Não possui cadastro? Clique aqui para se cadastrar.
         </Link>
       </span>
-
-      {redirect && <Navigate to="/" />}
     </form>
   );
 }

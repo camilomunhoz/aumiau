@@ -1,0 +1,39 @@
+#ManagePet > div {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin: auto;
+  position: relative;
+  left: -20px;
+}
+
+#img_placeholder {
+  box-sizing: content-box !important;
+  border: 10px solid #fff4;
+  width: 200px;
+  height: 200px;
+  padding: 12px;
+  border-radius: 25%;
+}
+#img_placeholder svg {
+  position: relative;
+  top: -10px;
+  color: white;
+  font-size: 200px;
+  opacity: 0.5;
+}
+#right_side {
+  padding: 30px;
+}
+#left_side {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  padding: 30px;
+  padding-top: 50px;
+}
+
+#left_side > div > span {
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+}
