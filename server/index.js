@@ -14,6 +14,66 @@ const db = mysql.createPool({
   password: "password",
   database: "aumiau",
 });
+app.listen(3001, () => {
+  console.log("Servidor iniciado.");
+});
+app.get("/db_setup", () => {
+  // Before running these, manually record your especies in DB. ---> {id: 1, name: "Cachorro"}, {id: 2, name: "Gato"} <---
+  let racasCachorro = [
+    "Vira-lata",
+    "Shih Tzu",
+    "Yorkshire",
+    "Poodle",
+    "Lhasa Apso",
+    "Buldogue",
+    "Golden Retriever",
+    "Labrador",
+    "Pug",
+    "Maltês",
+    "Pit Bull",
+    "Pinscher",
+    "Galgo",
+    "Terrier",
+    "Lulu da Pomerânia",
+  ];
+  racasCachorro.sort();
+  for (let raca of racasCachorro) {
+    db.query(
+      `INSERT INTO racas (idespecie, name) VALUES (1, '${raca}')`,
+      (err) => {
+        err
+          ? console.log(err)
+          : console.log(`Raça "${raca}" inserida com sucesso.`);
+      }
+    );
+  }
+  let racasGato = [
+    "Vira-lata",
+    "Persa",
+    "Maine Coon",
+    "Gato-de-bengala",
+    "Gato de Pelo Curto Inglês",
+    "Siamês",
+    "Bombaim",
+    "Ragdoll",
+    "Sphynx",
+    "Munchkin",
+    "Siberiano",
+    "Angorá",
+    "Abssínio",
+  ];
+  racasGato.sort();
+  for (let raca of racasGato) {
+    db.query(
+      `INSERT INTO racas (idespecie, name) VALUES (2, '${raca}')`,
+      (err) => {
+        err
+          ? console.log(err)
+          : console.log(`Raça "${raca}" inserida com sucesso.`);
+      }
+    );
+  }
+});
 
 app.use(cors());
 app.use(express.json());
@@ -22,6 +82,16 @@ app.use(express.json());
  *  REGISTER
  */
 app.post("/register", (req, res) => {
+  // Validating...
+  if (
+    !!req.body.name == false ||
+    !!req.body.cpf == false ||
+    !!req.body.email == false ||
+    !!req.body.password == false ||
+    !!req.body.birth == false
+  ) {
+    res.send({ errors: [{ field: "all", msg: "Preencha todos os campos." }] }); // Must fill all fields
+  }
   const errors = validate(req.body);
 
   // If there are no errors, register, if there is, send errorBag
@@ -43,7 +113,7 @@ app.post("/register", (req, res) => {
                   if (err) {
                     res.send(err);
                   } else if (result) {
-                    res.send({ success: true, logged: row[0].iduser }); // Sucess, send user id
+                    res.send({ success: true, logged: row[0].iduser }); // Success, send user id
                   } else {
                     res.send({
                       success: false,
@@ -66,6 +136,10 @@ app.post("/register", (req, res) => {
  *  LOGIN
  */
 app.post("/login", (req, res) => {
+  // Validating...
+  if (!!req.body.email == false || !!req.body.password == false) {
+    res.send({ errors: [{ field: "all", msg: "Preencha todos os campos." }] }); // Must fill all fields
+  }
   const errors = validate(req.body);
 
   // If there are no errors, validate login data, if there is, send errorBag
@@ -95,7 +169,7 @@ app.post("/login", (req, res) => {
   }
 });
 
-// -------------------  Aqui enquanto não consigo modularizar o código
+// -------------------  Está aqui enquanto não consigo modularizar o código
 function validate(fields) {
   let errorBag = [];
 
@@ -136,7 +210,69 @@ function validate(fields) {
   return errorBag;
 }
 
-// PORT
-app.listen(3001, () => {
-  console.log("Servidor iniciado.");
+/*
+ *  ADD PET
+ */
+app.post("/pets/add", (req, res) => {
+  console.log(req.body);
+  // Validating...
+  if (
+    !!req.body.iduser == false ||
+    !!req.body.idraca == false ||
+    !!req.body.idespecie == false ||
+    !!req.body.name == false ||
+    !!req.body.furcolor == false ||
+    !!req.body.birth == false
+  ) {
+    res.send({ errors: [{ field: "all", msg: "Preencha todos os campos." }] }); // Must fill all fields
+    return;
+  }
+  // Store pet if there are no errors
+  else {
+    db.query(
+      "INSERT INTO pets (iduser, idraca, idespecie, name, furcolor, birth) VALUES (?, ?, ?, ?, ?, ?)",
+      [
+        req.body.iduser,
+        req.body.idraca,
+        req.body.idespecie,
+        req.body.name,
+        req.body.furcolor,
+        req.body.birth,
+      ],
+      (err, result) => {
+        if (err) {
+          res.send(err);
+        } else if (result) {
+          res.send({ success: true, msg: "Pet cadastrado com sucesso." }); // Success
+        } else {
+          res.send({
+            success: false,
+            msg: "Ocorreu um erro, tente novamente.",
+          }); // Pet was not stored in the DB
+        }
+      }
+    );
+  }
+});
+
+/*
+ *  GET RAÇAS AND ESPECIES
+ */
+app.get("/get/racas", (req, res) => {
+  db.query("SELECT * FROM racas", (err, result) => {
+    err
+      ? console.log(err)
+      : result.length > 0
+      ? res.send(result)
+      : console.log("Sem raças cadastradas no BD.");
+  });
+});
+app.get("/get/especies", (req, res) => {
+  db.query("SELECT * FROM especies", (err, result) => {
+    err
+      ? console.log(err)
+      : result.length > 0
+      ? res.send(result)
+      : console.log("Sem especies cadastradas no BD.");
+  });
 });

@@ -3,22 +3,25 @@
   grid-template-columns: auto auto;
   margin: auto;
   position: relative;
-  left: -20px;
+  left: -40px;
 }
 
 #img_placeholder {
   box-sizing: content-box !important;
-  border: 10px solid #fff4;
+  background-color: #fff2;
   width: 200px;
   height: 200px;
   padding: 12px;
   border-radius: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #img_placeholder svg {
   position: relative;
   top: -10px;
   color: white;
-  font-size: 200px;
+  font-size: 150px;
   opacity: 0.5;
 }
 #right_side {

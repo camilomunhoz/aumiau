@@ -1,6 +1,9 @@
 const isLogged = () => {
   return !!localStorage.getItem("aumiau_logged");
 };
+const getAuthID = () => {
+  return localStorage.getItem("aumiau_logged");
+};
 
 const authenticate = (id) => localStorage.setItem("aumiau_logged", id);
 
@@ -10,4 +13,4 @@ const unauthenticate = () => {
 };
 
 export default isLogged;
-export { authenticate, unauthenticate };
+export { authenticate, unauthenticate, getAuthID };
