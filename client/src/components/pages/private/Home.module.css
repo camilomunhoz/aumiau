@@ -1,2 +1,14 @@
 #Home {
+  padding: 30px;
+}
+#cards_container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(200px, 1fr)
+  ); /* Faz uma espécie de flex com o grid. O Google Drive faz assim.*/
+  gap: 15px;
+}
+a {
+  text-decoration: none;
 }

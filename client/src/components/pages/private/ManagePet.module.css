@@ -1,18 +1,31 @@
-#ManagePet > div {
+/* Basic structure */
+#ManagePet {
   display: grid;
   grid-template-columns: auto auto;
   margin: auto;
   position: relative;
   left: -40px;
 }
+#right_side {
+  padding: 30px;
+}
+#left_side {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  padding: 30px;
+  padding-top: 50px;
+  padding-right: 50px;
+}
 
+/* Elements */
 #img_placeholder {
   box-sizing: content-box !important;
   background-color: #fff2;
   width: 200px;
   height: 200px;
   padding: 12px;
-  border-radius: 25%;
+  border-radius: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,19 +37,10 @@
   font-size: 150px;
   opacity: 0.5;
 }
-#right_side {
-  padding: 30px;
-}
-#left_side {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  padding: 30px;
-  padding-top: 50px;
-}
-
 #left_side > div > span {
   text-align: center;
   display: block;
   margin-top: 20px;
+  max-width: 220px;
+  word-break: keep-all;
 }

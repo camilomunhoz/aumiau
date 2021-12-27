@@ -12,29 +12,24 @@ function ManagePet() {
 
   return (
     <Content id={styles.ManagePet}>
-      <div>
-        {/* Left side */}
-        <div id={styles.left_side}>
-          <div>
-            <div id={styles.img_placeholder}>
-              {petEspecie == "" || petEspecie == null ? (
-                <FaPaw />
-              ) : petEspecie == 1 ? (
-                <FaDog />
-              ) : (
-                <FaCat />
-              )}
-            </div>
-            <FormTitle title={petName ? petName : "Novo pet"} />
+      {/* Left side */}
+      <div id={styles.left_side}>
+        <div>
+          <div id={styles.img_placeholder}>
+            {petEspecie == "" || petEspecie == null ? (
+              <FaPaw />
+            ) : petEspecie == 1 ? (
+              <FaDog />
+            ) : (
+              <FaCat />
+            )}
           </div>
+          <FormTitle title={petName ? petName : "Novo pet"} />
         </div>
-        {/* Right side */}
-        <div id={styles.right_side}>
-          <FormManagePet
-            setPetName={setPetName}
-            setPetEspecie={setPetEspecie}
-          />
-        </div>
+      </div>
+      {/* Right side */}
+      <div id={styles.right_side}>
+        <FormManagePet setPetName={setPetName} setPetEspecie={setPetEspecie} />
       </div>
     </Content>
   );
