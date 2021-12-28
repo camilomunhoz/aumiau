@@ -276,3 +276,66 @@ app.get("/get/especies", (req, res) => {
       : console.log("Sem especies cadastradas no BD.");
   });
 });
+
+/*
+ *  GET USER'S PETS
+ */
+app.get("/get/pets/user", (req, res) => {
+  //
+  // First, here should occur the validation of the auth user
+  //
+
+  // If an user was passed via GET...
+  if (req.query.id) {
+    db.query(
+      "SELECT idpet, idespecie, name FROM pets WHERE iduser = ?",
+      [req.query.id],
+      (err, result) => {
+        err
+          ? console.log(err)
+          : result.length > 0
+          ? res.send(result)
+          : console.log("Sem dados.");
+      }
+    );
+  }
+});
+
+/*
+ *  DELETE USER'S PET
+ */
+app.delete("/delete/pet/:id", (req, res) => {
+  //
+  // First, here should occur the validation of the auth user
+  //
+
+  // If a pet ID was passed...
+  if (req.params.id) {
+    db.query(
+      "SELECT idpet FROM pets WHERE idpet = ?",
+      [req.params.id],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else if (result.length > 0) {
+          db.query(
+            "DELETE FROM pets WHERE idpet = ?",
+            [req.params.id],
+            (err) => {
+              if (!err) {
+                console.log(
+                  "Pet de id " + req.params.id + " deletado com sucesso."
+                );
+                res.send({ success: true, msg: "Pet deletado com sucesso." });
+                return;
+              }
+            }
+          );
+        } else {
+          console.log("Pet não encontrado.");
+          res.send({ success: false, msg: "Pet não encontrado." });
+        }
+      }
+    );
+  }
+});

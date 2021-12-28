@@ -28,9 +28,11 @@ function FormManagePet({ setPetName, setPetEspecie }) {
 
   // Executed on first render
   useMountEffect(() => {
+    // Get raças
     Axios.get("http://localhost:3001/get/racas").then((response) =>
       setRacas(response.data)
     );
+    // Get especies
     Axios.get("http://localhost:3001/get/especies").then((response) =>
       setEspecies(response.data)
     );

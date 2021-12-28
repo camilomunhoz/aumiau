@@ -4,6 +4,7 @@
   grid-template-columns: auto auto;
   margin: auto;
   position: relative;
+  justify-content: center;
   left: -40px;
 }
 #right_side {
@@ -43,4 +44,12 @@
   margin-top: 20px;
   max-width: 220px;
   word-break: keep-all;
+}
+
+/* Media queries */
+@media screen and (max-width: 715px) {
+  #ManagePet {
+    grid-template-columns: auto;
+    left: 0;
+  }
 }

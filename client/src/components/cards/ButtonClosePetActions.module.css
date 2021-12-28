@@ -1,0 +1,13 @@
+.ButtonClosePetActions {
+  text-decoration: none;
+  color: white;
+  font-size: 0.85em;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 200;
+  text-decoration: underline;
+  transition: font 0.2s ease;
+}
+.ButtonClosePetActions:hover {
+  font-size: 20px;
+}

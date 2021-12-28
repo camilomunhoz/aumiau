@@ -59,4 +59,14 @@
   word-break: break-all;
 }
 
-/* Back face of the card */
+/* Deletion confirmation dialog */
+.deletion_dialog {
+  justify-content: center;
+  gap: 15px;
+  color: white;
+  font-weight: 300;
+  font-size: 19px;
+}
+.deletion_dialog button {
+  width: 60%;
+}

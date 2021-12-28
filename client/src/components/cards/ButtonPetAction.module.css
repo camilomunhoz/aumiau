@@ -1,0 +1,22 @@
+.ButtonPetAction {
+  display: block;
+  padding: 10px 15px;
+  border: none;
+  background-color: #fff5;
+  width: 100%;
+  color: white;
+  text-transform: uppercase;
+  font-family: "Source Sans 3";
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 16px;
+}
+.ButtonPetAction:hover {
+  background-color: white;
+  /* color: var(--color1); */
+  color: rgb(107, 64, 15);
+  font-weight: bold;
+}
+.ButtonPetAction_link {
+  width: 100%;
+}

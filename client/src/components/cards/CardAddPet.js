@@ -1,5 +1,4 @@
 import styles from "./CardAddPet.module.css";
-import { useState } from "react";
 
 function CardAddPet() {
   return (
