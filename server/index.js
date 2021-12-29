@@ -17,63 +17,63 @@ const db = mysql.createPool({
 app.listen(3001, () => {
   console.log("Servidor iniciado.");
 });
-app.get("/db_setup", () => {
-  // Before running these, manually record your especies in DB. ---> {id: 1, name: "Cachorro"}, {id: 2, name: "Gato"} <---
-  let racasCachorro = [
-    "sem raça definida",
-    "Shih Tzu",
-    "Yorkshire",
-    "Poodle",
-    "Lhasa Apso",
-    "Buldogue",
-    "Golden Retriever",
-    "Labrador",
-    "Pug",
-    "Maltês",
-    "Pit Bull",
-    "Pinscher",
-    "Galgo",
-    "Terrier",
-    "Lulu da Pomerânia",
-  ];
-  racasCachorro.sort();
-  for (let raca of racasCachorro) {
-    db.query(
-      `INSERT INTO racas (idespecie, name) VALUES (1, '${raca}')`,
-      (err) => {
-        err
-          ? console.log(err)
-          : console.log(`Raça "${raca}" inserida com sucesso.`);
-      }
-    );
-  }
-  let racasGato = [
-    "sem raça definida",
-    "Persa",
-    "Maine Coon",
-    "Gato-de-bengala",
-    "Gato de Pelo Curto Inglês",
-    "Siamês",
-    "Bombaim",
-    "Ragdoll",
-    "Sphynx",
-    "Munchkin",
-    "Siberiano",
-    "Angorá",
-    "Abssínio",
-  ];
-  racasGato.sort();
-  for (let raca of racasGato) {
-    db.query(
-      `INSERT INTO racas (idespecie, name) VALUES (2, '${raca}')`,
-      (err) => {
-        err
-          ? console.log(err)
-          : console.log(`Raça "${raca}" inserida com sucesso.`);
-      }
-    );
-  }
-});
+// app.get("/db_setup", () => {
+//
+//   let racasCachorro = [
+//     "sem raça definida",
+//     "Shih Tzu",
+//     "Yorkshire",
+//     "Poodle",
+//     "Lhasa Apso",
+//     "Buldogue",
+//     "Golden Retriever",
+//     "Labrador",
+//     "Pug",
+//     "Maltês",
+//     "Pit Bull",
+//     "Pinscher",
+//     "Galgo",
+//     "Terrier",
+//     "Lulu da Pomerânia",
+//   ];
+//   racasCachorro.sort();
+//   for (let raca of racasCachorro) {
+//     db.query(
+//       `INSERT INTO racas (idespecie, name) VALUES (1, '${raca}')`,
+//       (err) => {
+//         err
+//           ? console.log(err)
+//           : console.log(`Raça "${raca}" inserida com sucesso.`);
+//       }
+//     );
+//   }
+//   let racasGato = [
+//     "sem raça definida",
+//     "Persa",
+//     "Maine Coon",
+//     "Gato-de-bengala",
+//     "Gato de Pelo Curto Inglês",
+//     "Siamês",
+//     "Bombaim",
+//     "Ragdoll",
+//     "Sphynx",
+//     "Munchkin",
+//     "Siberiano",
+//     "Angorá",
+//     "Abssínio",
+//   ];
+//   racasGato.sort();
+//   for (let raca of racasGato) {
+//     db.query(
+//       `INSERT INTO racas (idespecie, name) VALUES (2, '${raca}')`,
+//       (err) => {
+//         err
+//           ? console.log(err)
+//           : console.log(`Raça "${raca}" inserida com sucesso.`);
+//       }
+//     );
+//   }
+// });
 
 app.use(cors());
 app.use(express.json());
