@@ -1,6 +1,6 @@
 import styles from "./login_and_register.module.css";
 import FormRegister from "../../forms/to_auth/FormRegister";
-import Logo from "../../layouts/Logo";
+import Logo from "../../layout/Logo";
 
 function Register() {
   return (

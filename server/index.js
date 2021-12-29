@@ -235,7 +235,7 @@ app.post("/pets/add", (req, res) => {
         req.body.idraca,
         req.body.idespecie,
         req.body.name,
-        req.body.furcolor.toLowerCase(),
+        req.body.furcolor,
         req.body.birth,
       ],
       (err, result) => {

@@ -1,6 +1,6 @@
 import styles from "./login_and_register.module.css";
 import FormLogin from "../../forms/to_auth/FormLogin";
-import Logo from "../../layouts/Logo";
+import Logo from "../../layout/Logo";
 
 function Login() {
   return (

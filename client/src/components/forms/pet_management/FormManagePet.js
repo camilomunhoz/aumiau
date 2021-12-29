@@ -17,24 +17,12 @@ import {
   FaPalette,
 } from "react-icons/fa";
 
-function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
-  const [pet, setPet] = useState(
-    storedPet
-      ? {
-          // When editing an existent pet
-          idpet: storedPet.idpet,
-          idespecie: storedPet.idespecie,
-          idraca: storedPet.idraca,
-          name: storedPet.name,
-          furcolor: storedPet.furcolor,
-          birth: storedPet.birth,
-        }
-      : {
-          // When adding a new pet
-          iduser: getAuthID(),
-          idespecie: null,
-        }
-  );
+function FormManagePet({ setPetName, setPetEspecie, petID }) {
+  const [pet, setPet] = useState({
+    // When adding a new pet
+    iduser: getAuthID(),
+    idespecie: null,
+  });
   const [especies, setEspecies] = useState();
   const [racas, setRacas] = useState();
   const [redirect, setRedirect] = useState(false);
@@ -52,6 +40,14 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
     Axios.get("http://localhost:3001/get/especies").then((response) =>
       setEspecies(response.data)
     );
+    // Get stored pet if it is an editing (id was given)
+    if (petID) {
+      Axios.get("http://localhost:3001/get/pet?id=" + petID).then(
+        (response) => {
+          setPet(response.data[0]);
+        }
+      );
+    }
   });
 
   // Stores the form data on change
@@ -61,8 +57,9 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
 
   // Send form data to server
   function handleSubmit() {
-    storedPet
+    petID
       ? Axios.put("http://localhost:3001/pets/edit", pet).then((response) => {
+          // Edit pet
           if (!response.data.success) {
             console.log(response.data.errors);
           } else {
@@ -70,6 +67,7 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
           }
         })
       : Axios.post("http://localhost:3001/pets/add", pet).then((response) => {
+          // Add new pet
           if (!response.data.success) {
             console.log(response.data.errors);
           } else {
@@ -92,7 +90,7 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
           handleChange(e);
           setPetName(e.target.value);
         }}
-        value={storedPet && (pet.name ? pet.name : storedPet.name)}
+        value={pet.name}
       />
       {/* ESPECIE */}
       <SelectBasic
@@ -110,9 +108,7 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
               key={especie.idespecie}
               value={especie.idespecie}
               selected={
-                storedPet && storedPet.idespecie === especie.idespecie
-                  ? true
-                  : false
+                petID && pet.idespecie === especie.idespecie ? true : false
               }
             >
               {especie.name}
@@ -127,16 +123,14 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
       >
         <option value="">Selecione a raça</option>
         {racas && // For dogs
-          (storedPet || pet.idespecie == 1) &&
+          (petID || pet.idespecie == 1) &&
           racas.map((raca) => {
             return (
               raca.idespecie == 1 && (
                 <option
                   key={raca.idraca}
                   value={raca.idraca}
-                  selected={
-                    storedPet && storedPet.idraca === raca.idraca ? true : false
-                  }
+                  selected={petID && pet.idraca === raca.idraca ? true : false}
                 >
                   {raca.name}
                 </option>
@@ -144,16 +138,14 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
             );
           })}
         {racas && // For cats
-          (storedPet || pet.idespecie == 2) &&
+          (petID || pet.idespecie == 2) &&
           racas.map((raca) => {
             return (
               raca.idespecie == 2 && (
                 <option
                   key={raca.idraca}
                   value={raca.idraca}
-                  selected={
-                    storedPet && storedPet.idraca === raca.idraca ? true : false
-                  }
+                  selected={petID && pet.idraca === raca.idraca ? true : false}
                 >
                   {raca.name}
                 </option>
@@ -167,7 +159,7 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
         placeholder="Pelagem"
         name="furcolor"
         handleOnChange={handleChange}
-        value={storedPet && (pet.furcolor ? pet.furcolor : storedPet.furcolor)}
+        value={pet.furcolor}
       />
       {/* BIRTH */}
       <InputBasic
@@ -176,7 +168,7 @@ function FormManagePet({ setPetName, setPetEspecie, storedPet }) {
         placeholder="Data de nascimento"
         name="birth"
         handleOnChange={handleChange}
-        value={storedPet && (pet.birth ? pet.birth : storedPet.birth)}
+        value={pet.birth}
       />
       {/* SAVE */}
       <ButtonSavePet text="Salvar" handleOnClick={handleSubmit} />

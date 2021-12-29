@@ -1,6 +1,6 @@
 import CardAddPet from "../../cards/CardAddPet";
 import CardPet from "../../cards/CardPet";
-import Content from "../../layouts/Content";
+import Content from "../../layout/Content";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";

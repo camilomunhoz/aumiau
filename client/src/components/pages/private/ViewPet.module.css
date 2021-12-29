@@ -6,8 +6,10 @@
   width: 100%;
   padding: 0 50px;
   overflow: hidden;
+  gap: 20px;
 }
 
+/* TEXT DESCRIPTION */
 #ViewPet p {
   color: white;
   font-weight: 200;
@@ -15,23 +17,57 @@
   text-align: center;
   max-width: 600px;
 }
+
+/* COMPLETE INFOS TABLE (ficha) */
+#infos {
+  z-index: 1;
+}
+#ficha {
+  color: white;
+  font-size: 24px;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+#ficha td {
+  border-radius: 10x;
+}
+#ficha td:first-of-type {
+  text-align: right;
+  padding-right: 15px;
+}
+#ficha td:last-of-type {
+  background-color: #fff1;
+  padding: 5px 15px;
+  font-weight: 300;
+}
+
+/* BUTTONS */
+#btn_view_description,
+#btn_edit_infos {
+  width: 110px;
+  margin: 10px 0 0 auto;
+}
+#btn_view_ficha {
+  width: 110px;
+  margin: 20px auto 0 auto;
+}
+
+/* GRAPHIC DETAILS */
 #ViewPet strong {
   font-weight: 600;
 }
-
 #ViewPet svg {
   height: 100%;
   font-size: 70vh;
-  color: #fff2;
+  color: #fff4;
   position: relative;
   top: -30px;
 }
-
 .detail {
   width: 600px;
   height: 600px;
   /* background-color: #fff2; */
-  border: 50px dashed #fff1;
+  border: 50px dashed #ffffff09;
   position: absolute;
   border-radius: 50%;
 }
