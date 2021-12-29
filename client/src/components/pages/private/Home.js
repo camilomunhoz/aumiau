@@ -28,6 +28,7 @@ function Home() {
         {pets &&
           pets.map((pet) => (
             <CardPet
+              key={pet.idpet}
               name={pet.name}
               especie={pet.idespecie}
               petID={pet.idpet}

@@ -15,8 +15,8 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         {/* Public routes */}
-        <Route element={<Login />} exact path="login" />
-        <Route element={<Register />} exact path="register" />
+        <Route element={<Login />} path="login" />
+        <Route element={<Register />} path="register" />
 
         {/* Private routes that uses Dashboard layout (includes navbar) */}
         <Route element={<Dashboard />}>
@@ -37,7 +37,6 @@ const AppRoutes = () => {
                 <ManagePet />
               </PrivateRoute>
             }
-            exact
             path="pets/add"
           />
           {/* Edit pet */}
@@ -47,7 +46,6 @@ const AppRoutes = () => {
                 <ManagePet />
               </PrivateRoute>
             }
-            exact
             path="pets/edit/:id"
           />
           {/* View pet details */}
@@ -57,7 +55,6 @@ const AppRoutes = () => {
                 <ViewPet />
               </PrivateRoute>
             }
-            exact
             path="pets/:id"
           />
         </Route>

@@ -20,7 +20,7 @@ app.listen(3001, () => {
 app.get("/db_setup", () => {
   // Before running these, manually record your especies in DB. ---> {id: 1, name: "Cachorro"}, {id: 2, name: "Gato"} <---
   let racasCachorro = [
-    "Vira-lata",
+    "sem raça definida",
     "Shih Tzu",
     "Yorkshire",
     "Poodle",
@@ -48,7 +48,7 @@ app.get("/db_setup", () => {
     );
   }
   let racasGato = [
-    "Vira-lata",
+    "sem raça definida",
     "Persa",
     "Maine Coon",
     "Gato-de-bengala",
@@ -214,7 +214,6 @@ function validate(fields) {
  *  ADD PET
  */
 app.post("/pets/add", (req, res) => {
-  console.log(req.body);
   // Validating...
   if (
     !!req.body.iduser == false ||
@@ -236,7 +235,7 @@ app.post("/pets/add", (req, res) => {
         req.body.idraca,
         req.body.idespecie,
         req.body.name,
-        req.body.furcolor,
+        req.body.furcolor.toLowerCase(),
         req.body.birth,
       ],
       (err, result) => {
@@ -249,6 +248,54 @@ app.post("/pets/add", (req, res) => {
             success: false,
             msg: "Ocorreu um erro, tente novamente.",
           }); // Pet was not stored in the DB
+        }
+      }
+    );
+  }
+});
+
+/*
+ *  EDIT PET
+ */
+app.put("/pets/edit", (req, res) => {
+  //
+  // First, here should occur the validation of the auth user
+  //
+  console.log(req.body);
+  // Validating...
+  if (
+    !!req.body.iduser == false ||
+    !!req.body.idraca == false ||
+    !!req.body.idespecie == false ||
+    !!req.body.name == false ||
+    !!req.body.furcolor == false ||
+    !!req.body.birth == false
+  ) {
+    res.send({ errors: [{ field: "all", msg: "Preencha todos os campos." }] }); // Must fill all fields
+    return;
+  }
+  // Update pet if there are no errors
+  else {
+    db.query(
+      "UPDATE pets SET idraca = ?, idespecie = ?, name = ?, furcolor = ?, birth = ? WHERE idpet = ?;",
+      [
+        req.body.idraca,
+        req.body.idespecie,
+        req.body.name,
+        req.body.furcolor,
+        req.body.birth,
+        req.body.idpet,
+      ],
+      (err, result) => {
+        if (err) {
+          res.send(err);
+        } else if (result) {
+          res.send({ success: true, msg: "Pet atualizado com sucesso." }); // Success
+        } else {
+          res.send({
+            success: false,
+            msg: "Ocorreu um erro, tente novamente.",
+          }); // Pet was not updated in the DB
         }
       }
     );
@@ -278,6 +325,30 @@ app.get("/get/especies", (req, res) => {
 });
 
 /*
+ *  GET USERNAME OF THE GIVEN USER
+ */
+app.get("/get/username", (req, res) => {
+  //
+  // First, here should occur the validation of the auth user
+  //
+
+  // If an user was passed via GET...
+  if (req.query.id) {
+    db.query(
+      "SELECT name FROM users WHERE iduser = ?",
+      [req.query.id],
+      (err, result) => {
+        err
+          ? console.log(err)
+          : result.length > 0
+          ? res.send(result)
+          : console.log("Sem dados.");
+      }
+    );
+  }
+});
+
+/*
  *  GET USER'S PETS
  */
 app.get("/get/pets/user", (req, res) => {
@@ -296,6 +367,30 @@ app.get("/get/pets/user", (req, res) => {
           : result.length > 0
           ? res.send(result)
           : console.log("Sem dados.");
+      }
+    );
+  }
+});
+
+/*
+ *  GET AN ESPECIFIC PET
+ */
+app.get("/get/pet", (req, res) => {
+  //
+  // First, here should occur the validation of the auth user
+  //
+
+  // If a pet was passed via GET...
+  if (req.query.id) {
+    db.query(
+      "SELECT p.idpet, p.idraca, p.iduser, p.idespecie, p.name, p.furcolor, p.birth, e.name as especie, r.name as raca FROM pets p INNER JOIN especies e ON p.idespecie = e.idespecie INNER JOIN racas r ON p.idraca = r.idraca WHERE p.idpet = ?",
+      [req.query.id],
+      (err, result) => {
+        err
+          ? console.log(err)
+          : result.length > 0
+          ? res.send(result)
+          : console.log("Pet não encontrado.");
       }
     );
   }

@@ -2,15 +2,30 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import styles from "./Navbar.module.css";
 import { FaBars, FaDoorOpen } from "react-icons/fa";
-import { useState } from "react";
-import { unauthenticate } from "../../auth";
+import { useState, useEffect } from "react";
+import Axios from "axios";
+import { getAuthID, unauthenticate } from "../../auth";
 
 function Navbar() {
   const [menu, setMenu] = useState("unactive");
-  const username = "Camilo";
+  const [username, setUsername] = useState();
   function toggleMenu() {
     menu === "active" ? setMenu("unactive") : setMenu("active");
   }
+  const useMountEffect = (func) => {
+    useEffect(func, []);
+  };
+
+  // Executed on first render
+  useMountEffect(() => {
+    // Get auth username
+    Axios.get("http://localhost:3001/get/username?id=" + getAuthID()).then(
+      (response) => {
+        const fullUsername = response.data[0].name;
+        setUsername(fullUsername.replace(/ .*/, "")); // Gets the first word
+      }
+    );
+  });
 
   return (
     <nav>
