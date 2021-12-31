@@ -5,6 +5,7 @@
 .no_border_input input {
   border: none;
   border-bottom: 3px solid #fff5;
+  transition: border 0.2s ease;
   height: 30px;
   width: 100%;
   padding: 10px 0px 20px 35px;
@@ -12,7 +13,7 @@
   background-color: transparent;
 }
 .no_border_input:first-of-type {
-  padding-top: 30px;
+  margin-top: 30px;
 }
 .no_border_input input::placeholder,
 .no_border_input input {
@@ -21,7 +22,7 @@
   font-weight: 100;
   font-family: "Source Sans 3";
 }
-.no_border_input svg {
+.no_border_input svg:not(.info_handle svg) {
   position: absolute;
   left: 0;
   font-size: 1.1em;
@@ -32,4 +33,33 @@
 #eye {
   left: 92%;
   cursor: pointer;
+}
+
+/* INPUT INFORMATIONS */
+.info_handle {
+  position: absolute;
+  right: -35px;
+  top: -10px;
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+}
+.info_input {
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  top: -5px;
+  color: #111;
+  font-size: 14px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  line-height: 14px;
+  font-weight: 400;
+  border-radius: 5px;
+}
+.showing {
+  display: flex;
+  color: #111;
 }

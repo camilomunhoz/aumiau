@@ -5,7 +5,7 @@
   width: 400px;
   height: fit-content;
   /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   backdrop-filter: blur(5px);
@@ -15,10 +15,6 @@
 #form_login .no_border_input,
 #form_register .no_border_input {
   padding-bottom: 30px;
-}
-#form_login .no_border_input:first-of-type,
-#form_register .no_border_input:first-of-type {
-  padding-top: 30px;
 }
 .link > a {
   text-decoration: none;
@@ -31,3 +27,23 @@
 #password_input {
   padding-right: 25px !important;
 }
+.look_at_me {
+  border-color: white !important;
+  /* animation-name: lookAtMe;
+  animation-iteration-count: 3;
+  animation-duration: 0.2s; */
+}
+/* @keyframes lookAtMe {
+  from {
+    transform: rotate(0);
+  }
+  33% {
+    transform: rotate(0.5deg);
+  }
+  66% {
+    transform: rotate(-0.5deg);
+  }
+  to {
+    transform: rotate(0);
+  }
+} */
