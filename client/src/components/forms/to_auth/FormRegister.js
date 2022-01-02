@@ -55,7 +55,15 @@ function FormRegister() {
       Axios.post("http://localhost:3001/register", register).then(
         (response) => {
           if (!response.data.success) {
-            console.log(response.data.errors);
+            // console.log(response.data.errors);
+            if (response.data.field === "email") {
+              setEmailError(response.data.msg);
+              lookAtMe("email");
+            } else if (response.data.field === "cpf") {
+              setEmailError(null);
+              lookAtMe("cpf");
+              setCpfError(response.data.msg);
+            }
           } else {
             authenticate(response.data.logged);
             setRedirect(true);
@@ -152,7 +160,7 @@ function FormRegister() {
         handleOnClick={handleSubmit}
       />
       <span className={styles.link}>
-        <Link to="/">Já possui cadastro? Clique aqui para entrar.</Link>
+        <Link to="/login">Já possui cadastro? Clique aqui para entrar.</Link>
       </span>
     </form>
   );

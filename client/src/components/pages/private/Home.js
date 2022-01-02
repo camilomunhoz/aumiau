@@ -17,7 +17,9 @@ function Home() {
   // Executed on first render
   useMountEffect(() => {
     Axios.get("http://localhost:3001/get/pets/user?id=" + getAuthID()).then(
-      (response) => setPets(response.data)
+      (response) => {
+        setPets(response.data);
+      }
     );
   });
 
@@ -34,7 +36,7 @@ function Home() {
               petID={pet.idpet}
             />
           ))}
-        {/* Card with plus sign. To add pets */}
+        {/* Card with plus sign to add pets */}
         <Link to="/pets/add">
           <CardAddPet />
         </Link>

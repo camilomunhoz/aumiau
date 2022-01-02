@@ -41,7 +41,15 @@ function FormLogin() {
     if (email.ok && password.ok) {
       Axios.post("http://localhost:3001/login", login).then((response) => {
         if (!response.data.success) {
-          console.log(response.data.errors);
+          // console.log(response.data.errors);
+          if (response.data.field === "email") {
+            setEmailError(response.data.msg);
+            lookAtMe("email");
+          } else if (response.data.field === "password") {
+            setEmailError(null);
+            lookAtMe("password");
+            setPasswordError(response.data.msg);
+          }
         } else {
           authenticate(response.data.logged);
           setRedirect(true);

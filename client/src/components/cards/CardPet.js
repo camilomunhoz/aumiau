@@ -21,7 +21,11 @@ function CardPet({ petID, name, especie }) {
   }
 
   return (
-    <div className={styles.card_scene} data-pet--id={petID}>
+    <div
+      className={styles.card_scene}
+      data-pet--id={petID}
+      title={!isFlipped && "Ver ações"}
+    >
       <div
         className={`${styles.card_body} ${isFlipped && styles.card_is_flipped}`}
       >

@@ -94,41 +94,85 @@ app.post("/register", (req, res) => {
   }
   const errors = validate(req.body);
 
-  // If there are no errors, register, if there is, send errorBag
+  // If there are no errors, register, if there is, send errorBag. Callback hell? lol
   if (errors.length > 0) {
     res.send({ errors: errors });
   } else {
-    bcrypt.hash(req.body.password, 6, (bcryptErr, hash) => {
-      if (!bcryptErr) {
-        db.query(
-          "INSERT INTO users (name, cpf, email, password, birth) VALUES (?, ?, ?, ?, ?)",
-          [req.body.name, req.body.cpf, req.body.email, hash, req.body.birth],
-          (err, result) => {
-            if (err) {
-              res.send(err);
-            } else {
-              db.query(
-                `SELECT iduser FROM users WHERE email = '${req.body.email}' LIMIT 1`,
-                (err, row) => {
-                  if (err) {
-                    res.send(err);
-                  } else if (result) {
-                    res.send({ success: true, logged: row[0].iduser }); // Success, send user id
+    db.query(
+      `SELECT iduser FROM users WHERE email = '${req.body.email}'`,
+      (err, result) => {
+        if (err) {
+          res.send(err);
+        } else if (result.length) {
+          // Error: E-mail already taken
+          res.send({
+            success: false,
+            field: "email",
+            msg: "Este e-mail já está em uso.",
+          });
+        } else {
+          db.query(
+            `SELECT iduser FROM users WHERE cpf = '${req.body.cpf}'`,
+            (err, result) => {
+              if (err) {
+                res.send(err);
+              } else if (result.length) {
+                // Error: CPF already taken
+                res.send({
+                  success: false,
+                  field: "cpf",
+                  msg: "Este CPF já está em uso.",
+                });
+              } else {
+                // Ready to register user
+                bcrypt.hash(req.body.password, 6, (bcryptErr, hash) => {
+                  if (!bcryptErr) {
+                    db.query(
+                      "INSERT INTO users (name, cpf, email, password, birth) VALUES (?, ?, ?, ?, ?)",
+                      [
+                        req.body.name,
+                        req.body.cpf,
+                        req.body.email,
+                        hash,
+                        req.body.birth,
+                      ],
+                      (err, result) => {
+                        if (err) {
+                          res.send(err);
+                        } else {
+                          db.query(
+                            `SELECT iduser FROM users WHERE email = '${req.body.email}' LIMIT 1`,
+                            (err, row) => {
+                              if (err) {
+                                res.send(err);
+                              } else if (result) {
+                                // Success: Send user id
+                                res.send({
+                                  success: true,
+                                  logged: row[0].iduser,
+                                });
+                              } else {
+                                res.send({
+                                  // Error: User was not recorded in the DB
+                                  success: false,
+                                  msg: "Ocorreu um erro, tente novamente.",
+                                });
+                              }
+                            }
+                          );
+                        }
+                      }
+                    );
                   } else {
-                    res.send({
-                      success: false,
-                      msg: "Ocorreu um erro, tente novamente.",
-                    }); // User was not recorded in the DB
+                    res.send(bcryptErr);
                   }
-                }
-              );
+                });
+              }
             }
-          }
-        );
-      } else {
-        res.send(bcryptErr);
+          );
+        }
       }
-    });
+    );
   }
 });
 
@@ -151,6 +195,12 @@ app.post("/login", (req, res) => {
       (err, result) => {
         if (err) {
           res.send(err);
+        } else if (!result.length) {
+          res.send({
+            success: false,
+            field: "email",
+            msg: "Este e-mail não está cadastrado.",
+          });
         } else {
           bcrypt.compare(
             req.body.password,
@@ -159,7 +209,11 @@ app.post("/login", (req, res) => {
               if (bcryptRes) {
                 res.send({ success: true, logged: result[0].iduser }); // Success, send user id
               } else {
-                res.send({ success: false, msg: "A senha não confere." }); // Password was not right
+                res.send({
+                  success: false,
+                  field: "password",
+                  msg: "A senha informada não confere.",
+                }); // Password was not right
               }
             }
           );
@@ -362,11 +416,7 @@ app.get("/get/pets/user", (req, res) => {
       "SELECT idpet, idespecie, name FROM pets WHERE iduser = ?",
       [req.query.id],
       (err, result) => {
-        err
-          ? console.log(err)
-          : result.length > 0
-          ? res.send(result)
-          : console.log("Sem dados.");
+        err ? console.log(err) : res.send(result);
       }
     );
   }

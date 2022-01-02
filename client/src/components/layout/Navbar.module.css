@@ -89,3 +89,19 @@ nav {
   margin-right: 10px;
   bottom: -2px;
 }
+.togglable_link {
+  display: none;
+}
+.togglable_link > a {
+  color: white;
+  text-decoration: none;
+}
+@media screen and (max-width: 450px) {
+  .togglable_link {
+    display: block;
+    height: fit-content;
+  }
+  .nav_left_items > .nav_link:not(#logo) {
+    display: none;
+  }
+}

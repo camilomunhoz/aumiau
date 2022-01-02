@@ -3,6 +3,7 @@ import styles from "./FormManagePet.module.css";
 import Axios from "axios";
 import { Navigate } from "react-router-dom";
 import { getAuthID } from "../../../auth";
+import validate from "../../../validations";
 
 import FormTitle from "../FormTitle";
 import InputBasic from "../InputBasic";
@@ -17,7 +18,7 @@ import {
   FaPalette,
 } from "react-icons/fa";
 
-function FormManagePet({ setPetName, setPetEspecie, petID }) {
+function FormManagePet({ setPetName, setPetEspecie, petID, setError }) {
   const [pet, setPet] = useState({
     // When adding a new pet
     iduser: getAuthID(),
@@ -57,23 +58,45 @@ function FormManagePet({ setPetName, setPetEspecie, petID }) {
 
   // Send form data to server
   function handleSubmit() {
-    petID
-      ? Axios.put("http://localhost:3001/pets/edit", pet).then((response) => {
-          // Edit pet
-          if (!response.data.success) {
-            console.log(response.data.errors);
-          } else {
-            setRedirect(true);
-          }
-        })
-      : Axios.post("http://localhost:3001/pets/add", pet).then((response) => {
-          // Add new pet
-          if (!response.data.success) {
-            console.log(response.data.errors);
-          } else {
-            setRedirect(true);
-          }
-        });
+    const name = validate(pet.name);
+    const idespecie = validate(pet.idespecie);
+    const idraca = validate(pet.idraca);
+    const furcolor = validate(pet.furcolor);
+    const birth = validate(pet.birth, "date");
+
+    if (name.ok && idespecie.ok && idraca.ok && furcolor.ok && birth.ok) {
+      petID
+        ? Axios.put("http://localhost:3001/pets/edit", pet).then((response) => {
+            // Edit pet
+            if (!response.data.success) {
+              console.log(response.data.errors);
+              setError(response.data.errors);
+            } else {
+              setRedirect(true);
+            }
+          })
+        : Axios.post("http://localhost:3001/pets/add", pet).then((response) => {
+            // Add new pet
+            if (!response.data.success) {
+              console.log(response.data.errors);
+              setError(response.data.errors);
+            } else {
+              setRedirect(true);
+            }
+          });
+    } else {
+      if (
+        !name.ok ||
+        !idespecie.ok ||
+        !idraca.ok ||
+        !furcolor.ok ||
+        !pet.birth
+      ) {
+        setError("Preencha todos os campos.");
+      } else if (!birth.ok) {
+        setError(birth.msg);
+      }
+    }
   }
 
   return (
@@ -82,16 +105,19 @@ function FormManagePet({ setPetName, setPetEspecie, petID }) {
 
       <FormTitle title="Detalhes do pet" />
       {/* NAME */}
-      <InputBasic
-        labelImg={<FaPaw />}
-        placeholder="Nome do pet"
-        name="name"
-        handleOnChange={(e) => {
-          handleChange(e);
-          setPetName(e.target.value);
-        }}
-        value={pet.name}
-      />
+      {!petID && (
+        <InputBasic
+          labelImg={<FaPaw />}
+          placeholder="Nome do pet"
+          name="name"
+          handleOnChange={(e) => {
+            handleChange(e);
+            setPetName(e.target.value);
+          }}
+          value={pet.name}
+        />
+      )}
+
       {/* ESPECIE */}
       <SelectBasic
         labelImg={<FaDna />}

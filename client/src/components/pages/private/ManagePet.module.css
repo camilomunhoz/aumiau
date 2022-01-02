@@ -45,6 +45,17 @@
   max-width: 220px;
   word-break: keep-all;
 }
+#limit_reached {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  margin: 0;
+  margin-top: 40px;
+  line-height: 50px;
+}
+#limit_reached i {
+  font-weight: 200;
+}
 
 /* Media queries */
 @media screen and (max-width: 715px) {

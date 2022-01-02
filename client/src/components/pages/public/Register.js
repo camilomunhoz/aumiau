@@ -5,8 +5,8 @@ import Logo from "../../layout/Logo";
 function Register() {
   return (
     <div className={styles.login_register_container}>
-      <FormRegister />
       <Logo id={styles.logo} width="50px" height="50px" showBrand={true} />
+      <FormRegister />
     </div>
   );
 }

@@ -51,6 +51,13 @@ function Navbar() {
         >
           <ul>
             <li>{username}</li>
+            <li className={styles.togglable_link}>
+              <Link to="/">Meus pets</Link>
+            </li>
+            <li className={styles.togglable_link}>
+              <Link to="/pets/add">Adicionar pet</Link>
+            </li>
+
             <li
               id={styles.logout_btn}
               onClick={() => {

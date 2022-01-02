@@ -29,21 +29,18 @@
 }
 .look_at_me {
   border-color: white !important;
-  /* animation-name: lookAtMe;
-  animation-iteration-count: 3;
-  animation-duration: 0.2s; */
 }
-/* @keyframes lookAtMe {
-  from {
-    transform: rotate(0);
+@media screen and (max-width: 600px) {
+  #form_login,
+  #form_register {
+    width: 100%;
+    border: none;
+    border-radius: 0;
   }
-  33% {
-    transform: rotate(0.5deg);
+}
+@media screen and (max-height: 615px) {
+  #form_login,
+  #form_register {
+    margin: auto;
   }
-  66% {
-    transform: rotate(-0.5deg);
-  }
-  to {
-    transform: rotate(0);
-  }
-} */
+}
