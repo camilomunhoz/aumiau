@@ -63,3 +63,12 @@
   display: flex;
   color: #111;
 }
+
+/* AUTOCOMPLETE BACKGROUND HANDLE ON CHROME */
+.no_border_input input:-webkit-autofill,
+.no_border_input input:-webkit-autofill:hover,
+.no_border_input input:-webkit-autofill:focus {
+  -webkit-text-fill-color: rgb(255, 255, 255);
+  font-weight: 300;
+  -webkit-box-shadow: 0 0 0px 100px rgb(150, 142, 137) inset;
+}
